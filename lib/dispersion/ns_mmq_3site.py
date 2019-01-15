@@ -280,6 +280,12 @@ def r2eff_ns_mmq_3site_mq(M0=None, F_vector=array([1, 0, 0], float64), R20A=None
     k_CA = pA * kex_AC / pA_pC
     k_AC = pC * kex_AC / pA_pC
 
+    # print('here:\npA {}\npB {}\npC {}\ndw_AB {}\ndw_BC {}\ndwH_AB {}\ndwH_BC {}\ndw_AC {}\n,dwH_AC {}\n,\
+    # pA_pB {}\n,pA_pC {}\n,pB_pC {}\n,k_BA {}\n,k_AB {}\n,k_CB {}\n,k_BC {}\n,k_CA {}\n,k_AC {}\n'.format(pA,pB,pC,dw_AB,dw_BC,dwH_AB,dwH_BC,\
+    #                                                                                                       dw_AC,dwH_AC,pA_pB,pA_pC,pB_pC,\
+    #                                                                                                       k_BA,k_AB,k_CB,k_BC,k_CA,k_AC))
+    # print('here:\ndw_AB {}\ndw_BC {}\ndwH_AB {}\ndwH_BC {}\ndw_AC {}\n,dwH_AC {}'.format(dw_AB,dw_BC,dwH_AB,dwH_BC,\
+    #                                                                                                      dw_AC,dwH_AC))
     # This is a vector that contains the initial magnetizations corresponding to the A and B state transverse magnetizations.
     M0[0] = pA
     M0[1] = pB

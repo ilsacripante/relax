@@ -46,7 +46,7 @@ def dw_lower(incs=None, model_info=None):
 
     # The MMQ models.
     if spin0.model in MODEL_LIST_MMQ:
-        return -10.0
+        return -0.5
 
     # All other models.
     else:
@@ -69,7 +69,7 @@ def dwH_lower(incs=None, model_info=None):
 
     # The MMQ models.
     if spin0.model in MODEL_LIST_MMQ:
-        return -3.0
+        return -0.2
 
     # All other models.
     else:
@@ -94,12 +94,15 @@ def pA_lower(incs=None, model_info=None):
     if spin0.model == MODEL_M61B:
         return 0.85
 
+    if spin0.model in [MODEL_NS_MMQ_3SITE, MODEL_NS_MMQ_3SITE_LINEAR]:
+        return 0.51
+
     # All other models.
     else:
         return 0.5
 
 
-def pB_lower(incs=None, model_info=None):
+def pB_upper(incs=None, model_info=None):
     """Determine the lower grid bound for the pB parameter.
 
     @keyword incs:          The number of grid search increments.
@@ -115,11 +118,11 @@ def pB_lower(incs=None, model_info=None):
 
     # The MMQ models.
     if spin0.model in [MODEL_NS_MMQ_3SITE_LINEAR, MODEL_NS_MMQ_3SITE]:
-        return 0.01
+        return 0.48
 
     # All other models.
     else:
-        return 0.0
+        return 0.50
 
 
 def pA_upper(incs=None, model_info=None):
@@ -225,7 +228,7 @@ class Relax_disp_params(Param_list):
             desc = 'The effective transversal relaxation rate',
             py_type = dict,
             set = 'params',
-            grid_lower = 1.0,
+            grid_lower=10.0,
             grid_upper = 40.0,
             grace_string = '\\qR\\s2,eff\\N\\Q (rad.s\\S-1\\N)',
             err = True,
@@ -268,8 +271,8 @@ class Relax_disp_params(Param_list):
             py_type = dict,
             set = 'params',
             scaling = 10,
-            grid_lower = 5.0,
-            grid_upper = 20.0,
+            grid_lower=20.0,
+            grid_upper=40.0,
             grace_string = '\\qR\\s2\\N\\Q (rad.s\\S-1\\N)',
             err = True,
             sim = True
@@ -322,8 +325,8 @@ class Relax_disp_params(Param_list):
             desc = 'The population for state B',
             py_type = float,
             set = 'params',
-            grid_lower=pB_lower,
-            grid_upper = 0.5,
+            grid_lower=0.0,
+            grid_upper=pB_upper,
             grace_string = '\\qp\\sB\\N\\Q',
             err = True,
             sim = True
@@ -412,7 +415,7 @@ class Relax_disp_params(Param_list):
             py_type = float,
             set = 'params',
             grid_lower = dw_lower,
-            grid_upper = 10.0,
+            grid_upper=0.5,
             grace_string = '\\q\\xDw\\B\\Q\\SAB\\N (ppm)',
             err = True,
             sim = True
@@ -425,7 +428,7 @@ class Relax_disp_params(Param_list):
             py_type = float,
             set = 'params',
             grid_lower = dw_lower,
-            grid_upper = 10.0,
+            grid_upper=0.5,
             grace_string = '\\q\\xDw\\B\\Q\\SAC\\N (ppm)',
             err = True,
             sim = True
@@ -438,7 +441,7 @@ class Relax_disp_params(Param_list):
             py_type = float,
             set = 'params',
             grid_lower = dw_lower,
-            grid_upper = 10.0,
+            grid_upper=0.5,
             grace_string = '\\q\\xDw\\B\\Q\\SBC\\N (ppm)',
             err = True,
             sim = True
@@ -464,7 +467,7 @@ class Relax_disp_params(Param_list):
             py_type = float,
             set = 'params',
             grid_lower = dwH_lower,
-            grid_upper = 3.0,
+            grid_upper=0.2,
             grace_string = '\\q\\xDw\\B\\sH\\N\\Q\\SAB\\N (ppm)',
             err = True,
             sim = True
@@ -477,7 +480,7 @@ class Relax_disp_params(Param_list):
             py_type = float,
             set = 'params',
             grid_lower = dwH_lower,
-            grid_upper = 3.0,
+            grid_upper=0.2,
             grace_string = '\\q\\xDw\\B\\sH\\N\\Q\\SAC\\N (ppm)',
             err = True,
             sim = True
@@ -490,7 +493,7 @@ class Relax_disp_params(Param_list):
             py_type = float,
             set = 'params',
             grid_lower = dwH_lower,
-            grid_upper = 3.0,
+            grid_upper=0.2,
             grace_string = '\\q\\xDw\\B\\sH\\N\\Q\\SBC\\N (ppm)',
             err = True,
             sim = True
@@ -517,8 +520,8 @@ class Relax_disp_params(Param_list):
             py_type = float,
             set = 'params',
             scaling = 10000,
-            grid_lower = 1.0,
-            grid_upper = 10000.0,
+            grid_lower=50.0,
+            grid_upper=3000.0,
             grace_string = '\\qk\\sex\\N\\Q\\SAB\\N (rad.s\\S-1\\N)',
             err = True,
             sim = True
@@ -531,8 +534,8 @@ class Relax_disp_params(Param_list):
             py_type = float,
             set = 'params',
             scaling = 10000,
-            grid_lower = 1.0,
-            grid_upper = 10000.0,
+            grid_lower=50.0,
+            grid_upper=3000.0,
             grace_string = '\\qk\\sex\\N\\Q\\SAC\\N (rad.s\\S-1\\N)',
             err = True,
             sim = True
@@ -545,8 +548,8 @@ class Relax_disp_params(Param_list):
             py_type = float,
             set = 'params',
             scaling = 10000,
-            grid_lower = 1.0,
-            grid_upper = 10000.0,
+            grid_lower=50.0,
+            grid_upper=3000.0,
             grace_string = '\\qk\\sex\\N\\Q\\SBC\\N (rad.s\\S-1\\N)',
             err = True,
             sim = True

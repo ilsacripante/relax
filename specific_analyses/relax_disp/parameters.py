@@ -532,9 +532,9 @@ def linear_constraints(spins=None, scaling_matrix=None):
         if param_name == 'r2eff':
             A.append(zero_array * 0.0)
             A.append(zero_array * 0.0)
-            A[j][param_index] = 1.0
+            A[j][param_index] = -1.0
             A[j+1][param_index] = -1.0
-            b.append(0.0)
+            b.append(-5.0)
             b.append(-200.0 / scaling_matrix[param_index, param_index])
             j += 2
 
@@ -579,6 +579,42 @@ def linear_constraints(spins=None, scaling_matrix=None):
                 A[j][param_index] = 1.0
                 b.append(0.0)
                 j += 1
+
+        # # Chemical exchange difference (dw >= 0).
+        # elif param_name in ['dw', 'dw_AB', 'dw_AC', 'dw_BC']:
+        #     print('name pindex sindex r20',param_name, param_index, spin_index, r20_key)
+        #
+        #     if spins[0].model in MODEL_LIST_MMQ + [MODEL_NS_R1RHO_3SITE, MODEL_NS_R1RHO_3SITE_LINEAR]:
+        #         A.append(zero_array * 0.0)
+        #         A.append(zero_array * 0.0)
+        #         A[j][param_index] = 1.0
+        #         A[j + 1][param_index] = -1.0
+        #         b.append( 4.0 / 200e6)
+        #         b.append( -4.0 /200e6)
+        #         j += 2
+        #     else:
+        #         A.append(zero_array * 0.0)
+        #         A[j][param_index] = 1.0
+        #         b.append(0.0)
+        #         j += 1
+        #
+        # # Chemical exchange difference (dw >= 0).
+        # elif param_name in ['dwH', 'dwH_AB', 'dwH_AC', 'dwH_BC']:
+        #     print('name pindex sindex r20', param_name, param_index, spin_index, r20_key)
+        #
+        #     if spins[0].model in MODEL_LIST_MMQ + [MODEL_NS_R1RHO_3SITE, MODEL_NS_R1RHO_3SITE_LINEAR]:
+        #         A.append(zero_array * 0.0)
+        #         A.append(zero_array * 0.0)
+        #         A[j][param_index] = 1.0
+        #         A[j + 1][param_index] = -1.0
+        #         b.append(4.0 / 850e6)
+        #         b.append(-4.0 / 850e6)
+        #         j += 2
+        #     else:
+        #         A.append(zero_array * 0.0)
+        #         A[j][param_index] = 1.0
+        #         b.append(0.0)
+        #         j += 1
 
         # The population of state A and B.
         elif param_name == 'pA':
@@ -654,6 +690,9 @@ def linear_constraints(spins=None, scaling_matrix=None):
     b = array(b, float64)
 
     # Return the matrices.
+    # print('A:', A)
+    # print('b:', b)
+    # exit()
     return A, b
 
 
